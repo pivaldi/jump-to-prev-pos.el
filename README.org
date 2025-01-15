@@ -1,0 +1,49 @@
+#+title: Emacs Package to Jump to the Previous Cursor Position
+
+This is a modified version of
+[[https://www.emacswiki.org/emacs/JumpToPrevPos][JumpToPrevPos]].
+
+- Renaming function to satisfy Emacs packages naming best practice ;
+- Make the variables ~jump-to-prev-pos-stack-depth~ customizable (default 32) ;
+- Register new cursor position only when the distance between current position
+  and previous one is greater or equal to ~jump-to-prev-pos-min-lines-number~
+  (customizable with default 5).
+
+* Installation
+** Old-school
+Place the file ~jump-to-prev-pos.el~ in your ~load-path~ and add to your Emacs
+configuration file :
+#+BEGIN_SRC
+(autoload jump-to-prev-pos-remember-position "jump-to-prev-pos" nil t)
+(add-hook 'pre-command-hook #'jump-to-prev-pos-remember-position)
+(define-key (current-global-map) (kbd "C-<") #'jump-to-prev-pos-prev-pos')
+(define-key (current-global-map) (kbd "C->") #'jump-to-prev-pos-next-pos')
+#+END_SRC
+
+** With ~use-package~
+#+BEGIN_SRC
+(use-package jump-to-prev-pos
+:straight '(jump-to-prev-pos
+              :type git
+              :host github
+              :repo "pivaldi/jump-to-prev-pos.el")
+:hook (pre-command-hook . jump-to-prev-pos-remember-position)
+:bind ("C-<" ("Jump to prev cursor position." . jump-to-prev-pos-prev-pos)
+       "C->" ("Jump to next cursor position." . jump-to-prev-pos-next-pos))
+#+END_SRC
+
+** With ~Doom Emacs~
+- In the file ~packages.el~ :
+  #+BEGIN_SRC
+(package! jump-to-prev-pos
+  :recipe (:host github :repo "pivaldi/jump-to-prev-pos.el"))
+  #+END_SRC
+- In the file ~config.el~ :
+  #+BEGIN_SRC
+(use-package! jump-to-prev-pos
+  :hook (pre-command-hook . jump-to-prev-pos-remember-position)
+  :config
+    (map! :desc "Jump to prev cursor position." "C-<" #'jump-to-prev-pos-prev-pos
+          :desc "Jump to next cursor position." "C->" #'jump-to-prev-pos-next-pos))
+
+  #+END_SRC
