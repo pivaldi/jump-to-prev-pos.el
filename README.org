@@ -23,13 +23,13 @@ configuration file :
 ** With ~use-package~
 #+BEGIN_SRC
 (use-package jump-to-prev-pos
-:straight '(jump-to-prev-pos
-              :type git
-              :host github
-              :repo "pivaldi/jump-to-prev-pos.el")
-:hook (pre-command-hook . jump-to-prev-pos-remember-position)
-:bind ("C-<" ("Jump to prev cursor position." . jump-to-prev-pos-prev-pos)
-       "C->" ("Jump to next cursor position." . jump-to-prev-pos-next-pos))
+  :straight '(jump-to-prev-pos
+               :type git
+               :host github
+               :repo "pivaldi/jump-to-prev-pos.el")
+  :hook (pre-command-hook . jump-to-prev-pos-remember-position)
+  :bind ("C-<" ("Jump to prev cursor position." . jump-to-prev-pos-prev-pos)
+         "C->" ("Jump to next cursor position." . jump-to-prev-pos-next-pos)))
 #+END_SRC
 
 ** With ~Doom Emacs~
