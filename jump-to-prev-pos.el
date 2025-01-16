@@ -48,7 +48,6 @@ point needed to add point in the stack."
 (defun jump-to-prev-pos-remember-position ()
   (let ((currentp (point))
         (previousp (car jump-to-prev-pos-prev-pos-stack)))
-    (and previousp (message (format "%d" (count-lines previousp currentp))))
     (unless (or
              (and previousp
                   (< (count-lines previousp currentp) jump-to-prev-pos-min-lines-number))
