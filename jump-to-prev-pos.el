@@ -57,7 +57,7 @@ point needed to add point in the stack."
       (setq jump-to-prev-pos-prev-pos-stack (cons currentp jump-to-prev-pos-prev-pos-stack))
       (when (> (length jump-to-prev-pos-prev-pos-stack) jump-to-prev-pos-stack-depth)
         (nbutlast jump-to-prev-pos-prev-pos-stack)))))
-;; (add-hook 'pre-command-hook #'jump-to-prev-pos-remember-position)
+(add-hook 'pre-command-hook #'jump-to-prev-pos-remember-position)
 
 ;;;###autoload
 (defun jump-to-prev-pos-prev-pos ()
